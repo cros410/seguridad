@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    tools:context="com.example.christian.aplicacionsegura.RegistroActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="131dp"
+        android:layout_height="125dp"
+        app:srcCompat="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="388dp"
+        android:layout_height="419dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="31dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
+            app:srcCompat="@drawable/ic_password" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout"
+            app:layout_constraintVertical_bias="0.52"
+            app:srcCompat="@drawable/ic_correo" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorTextoBoton"
+            android:text="Registrarse"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@color/colorTextoBoton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/imageView6"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="32dp"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <EditText
+                android:id="@+id/edt_correo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextoBoton"
+                android:focusableInTouchMode="true"
+                android:hint="Correo"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorTextoBoton" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorTextoBoton"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorTextoBoton"
+            app:layout_constraintLeft_toRightOf="@+id/imageView4"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            android:layout_marginRight="32dp"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextoBoton"
+                android:focusableInTouchMode="true"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:textColor="@color/colorTextoBoton" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ic_nombre"
+            android:layout_marginLeft="32dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout3"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorTextoBoton"
+            app:layout_constraintLeft_toRightOf="@+id/imageView7"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            android:layout_marginRight="32dp"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <EditText
+                android:id="@+id/edt_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextoBoton"
+                android:focusableInTouchMode="true"
+                android:hint="Nombre"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorTextoBoton" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
+            app:srcCompat="@drawable/ic_celular" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorTextoBoton"
+            app:layout_constraintLeft_toRightOf="@+id/imageView7"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="32dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+            <EditText
+                android:id="@+id/edt_celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextoBoton"
+                android:focusableInTouchMode="true"
+                android:hint="Celular"
+                android:inputType="number"
+                android:textColor="@color/colorTextoBoton" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout5"
+            app:srcCompat="@drawable/ic_direccion" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            android:layout_width="264dp"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/colorTextoBoton"
+            android:layout_marginRight="32dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/imageView9"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+            <EditText
+                android:id="@+id/edt_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorTextoBoton"
+                android:focusableInTouchMode="true"
+                android:hint="Direccion"
+                android:inputType="number"
+                android:textColor="@color/colorTextoBoton" />
+        </android.support.design.widget.TextInputLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>
