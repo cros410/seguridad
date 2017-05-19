@@ -8,8 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.christian.aplicacionsegura.Models.Notificacion;
-import com.example.christian.aplicacionsegura.Models.TestBody;
 import com.example.christian.aplicacionsegura.Models.Usuario;
 import com.example.christian.aplicacionsegura.Realm.RealmHelper;
 import com.example.christian.aplicacionsegura.Retrofit.Connection;
@@ -19,11 +17,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Si funciona");
-                TestBody testBody = new TestBody();
+                /*TestBody testBody = new TestBody();
                 testBody.setCorreo("christian@gmail.com");
                 Call<Usuario> getUsuario = Connection.getService().getUserByCorreo(testBody);
                 progressBar.setVisibility(View.VISIBLE);
@@ -81,7 +77,7 @@ public class TestActivity extends AppCompatActivity {
                     public void onFailure(Call<Usuario> call, Throwable t) {
                         Toast.makeText(TestActivity.this,"Error",Toast.LENGTH_LONG);
                     }
-                });
+                });*/
             }
         });
     }

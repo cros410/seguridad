@@ -1,11 +1,10 @@
 package com.example.christian.aplicacionsegura.Retrofit;
 
-import com.example.christian.aplicacionsegura.Models.TestBody;
 import com.example.christian.aplicacionsegura.Models.Usuario;
+import com.example.christian.aplicacionsegura.Response.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 /**
@@ -13,6 +12,6 @@ import retrofit2.http.POST;
  */
 
 public interface Service {
-    @POST("/test")
-    Call<Usuario> getUserByCorreo(@Body TestBody user);
+    @POST("/login")
+    Call<LoginResponse> getDataFotLogin(@Body Usuario user);
 }

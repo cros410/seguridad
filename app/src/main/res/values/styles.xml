@@ -13,4 +13,10 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="android:textColorHighlight">@color/colorExtra</item>
     </style>
+
+    <style name="secThemeBlanck" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/colorExtra</item>
+    </style>
 </resources>
