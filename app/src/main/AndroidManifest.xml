@@ -19,18 +19,19 @@
             android:value="@string/google_place_api" />
 
         <activity android:name=".PresentationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".OlvidarActivity" />
-        <activity android:name=".RegistrarIncidenciaActivity">
+        <activity android:name=".RegistrarIncidenciaActivity"></activity>
+        <activity android:name=".TestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
