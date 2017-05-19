@@ -1,188 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        tools:context="com.example.christian.aplicacionsegura.RegistrarIncidenciaActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+    <ImageButton
+        android:id="@+id/tipo_swipe"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/backgroud_file"
+        android:elevation="4dp"
+        android:src="@drawable/ic_maps_local_grocery_store"
+        android:tint="@color/colorExtra"
+        android:layout_gravity="center"/>
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:tint="@color/colorTextoBoton"
-            app:srcCompat="@drawable/ic_ubicacion"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout3"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="32dp"
-            app:layout_constraintLeft_toLeftOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView11"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:tint="@color/colorTextoBoton"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
-            app:srcCompat="@drawable/ic_descripcion" />
-
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:tint="@color/colorTextoBoton"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout"
-            app:layout_constraintVertical_bias="0.52"
-            app:srcCompat="@drawable/ic_titulo" />
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="32dp"
-            android:textColor="#000"
-            android:textColorHint="@color/colorTextoBoton"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintLeft_toRightOf="@+id/imageView10"
-            android:layout_marginLeft="8dp">
-
-            <EditText
-                android:id="@+id/edt_titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorTextoBoton"
-                android:focusableInTouchMode="true"
-                android:hint="Titulo"
-                android:textColorHint="@color/colorTextoBoton"
-                android:inputType="text"
-                android:textColor="@color/colorTextoBoton" />
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="#000"
-            android:textColorHint="@color/colorTextoBoton"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-            android:layout_marginRight="32dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/imageView11"
-            android:layout_marginLeft="8dp">
-
-            <EditText
-                android:id="@+id/edt_descripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorTextoBoton"
-                android:focusableInTouchMode="true"
-                android:hint="Descripcion"
-                android:inputType="textMultiLine"
-                android:textColor="@color/colorTextoBoton"
-
-                android:textColorHint="@color/colorTextoBoton" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="32dp"
-            android:textColor="#000"
-            android:textColorHint="@color/colorTextoBoton"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/imageView5"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-            <EditText
-                android:id="@+id/edt_ubicacion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorTextoBoton"
-                android:focusableInTouchMode="true"
-                android:hint="Ubicacion"
-                android:inputType="text"
-                android:textColor="@color/colorTextoBoton"
-
-                android:textColorHint="@color/colorTextoBoton" />
-        </android.support.design.widget.TextInputLayout>
-
-        <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/cast_album_art_placeholder"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="@+id/textInputLayout3"
-            android:layout_marginLeft="8dp"
-            android:tint="@color/colorTextoBoton"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.528" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="264dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/colorTextoBoton"
-            android:text="Registrar"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/imageView5"
-            app:layout_constraintRight_toRightOf="@+id/textInputLayout3"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12" />
-
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_add_imagen"
-            android:tint="@color/colorTextoBoton"
-            app:layout_constraintTop_toTopOf="@+id/imageView12"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView12"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintRight_toLeftOf="@+id/imageView12"
-            android:layout_marginRight="24dp" />
-
-
-    </android.support.constraint.ConstraintLayout>
-
-
-
-
-
-</android.support.v4.widget.NestedScrollView>
-
+</LinearLayout>
