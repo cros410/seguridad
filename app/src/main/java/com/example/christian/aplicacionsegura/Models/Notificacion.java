@@ -25,11 +25,11 @@ public class Notificacion  extends RealmObject{
         this.estado = estado;
     }
 
-    public String getId_usuario() {
+    public String getId_incidencia() {
         return id_incidencia;
     }
 
-    public void setId_usuario(String id_usuario) {
+    public void setId_incidencia(String id_usuario) {
         this.id_incidencia = id_usuario;
     }
 

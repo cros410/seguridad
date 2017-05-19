@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Christian on 18/05/2017.
@@ -13,6 +14,7 @@ import io.realm.RealmObject;
 public class Usuario extends RealmObject {
     @SerializedName("_id")
     @Expose
+    @PrimaryKey
     private String id;
     @SerializedName("correo")
     @Expose
@@ -128,5 +130,13 @@ public class Usuario extends RealmObject {
 
     public void setNumero(String numero) {
         this.numero = numero;
+    }
+
+    public RealmList<Notificacion> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(RealmList<Notificacion> notificaciones) {
+        this.notificaciones = notificaciones;
     }
 }
