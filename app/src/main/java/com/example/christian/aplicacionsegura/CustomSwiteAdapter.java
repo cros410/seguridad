@@ -15,7 +15,8 @@ import android.widget.TextView;
 
 public class CustomSwiteAdapter extends PagerAdapter {
 
-    private int[] images_resources= {R.drawable.t ,R.drawable.ic_audiotrack, R.drawable.ic_estadisticas };
+    private int[] images_resources= {R.drawable.crime_arma ,R.drawable.crime_pandillaje,
+            R.drawable.crime_violencia,R.drawable.crime_robo };
     private Context context;
     private LayoutInflater layoutInflater;
 

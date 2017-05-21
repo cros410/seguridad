@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_muro:
                         fragment = new MuroFragment();
                         break;
-                    case R.id.navigation_estadisticas:
-                        fragment = new EstadisticasFragment();
-                        break;
                     case R.id.navigation_preferencias:
                         fragment = new PreferenciasFragment();
                         break;

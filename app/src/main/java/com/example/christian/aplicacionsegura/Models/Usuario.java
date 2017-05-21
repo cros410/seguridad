@@ -14,7 +14,6 @@ import io.realm.annotations.PrimaryKey;
 public class Usuario extends RealmObject {
     @SerializedName("_id")
     @Expose
-    @PrimaryKey
     private String id;
     @SerializedName("correo")
     @Expose

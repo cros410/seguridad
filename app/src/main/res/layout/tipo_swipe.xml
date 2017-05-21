@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/backgroud_file"
         android:elevation="4dp"
-        android:src="@drawable/ic_maps_local_grocery_store"
+        android:src="@drawable/crime_violencia"
         android:tint="@color/colorExtra"
         android:layout_gravity="center"/>
 

@@ -26,13 +26,22 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.christian.aplicacionsegura.Models.Incidencia;
+import com.example.christian.aplicacionsegura.Models.Pos;
+import com.example.christian.aplicacionsegura.Models.Usuario;
+import com.example.christian.aplicacionsegura.Realm.RealmHelper;
+import com.example.christian.aplicacionsegura.Response.LoginResponse;
+import com.example.christian.aplicacionsegura.Retrofit.Connection;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -46,27 +55,80 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.Realm;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegistrarIncidenciaActivity extends AppCompatActivity {
 
     private EditText edt_ubicacion;
     int PLACE_PICKER_REQUEST =1;
     int SELECT_FILE = 0 , REQUEST_PERMITION_STORAGE = 1;
-    Toolbar toolbar ;
+    private String img_link;
     private GestureDetectorCompat gesture;
     Map config;
     private String pathClaudinary;
     Handler handler = new Handler();
     ViewPager viewPager;
     CustomSwiteAdapter customSwiteAdapter;
+    private TextView txv_tipo;
+    private Button btn_add_incidencia;
+    private ViewPager view_pager;
+    private ImageView imv_add_foto;
+    private ProgressBar pgb_cargar;
+    private boolean isImage = false;
+    private final String link = "http://res.cloudinary.com/jamacomida/image/upload/v1495398095/";
+    private EditText edt_titulo, edt_descripcion;
+    private String ti, des , dis;
+    private double lon , lat;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_incidencia);
-        //toolbar = (Toolbar) findViewById(R.id.toolbar2);
-        //toolbar.setTitle("Registrar Insidencia");
+        txv_tipo = (TextView) findViewById(R.id.txv_tipo);
+        edt_ubicacion = (EditText) findViewById(R.id.edt_distrito);
+        btn_add_incidencia =(Button) findViewById(R.id.btn_add_incidencia);
+        view_pager = (ViewPager) findViewById(R.id.view_pager);
+        imv_add_foto = (ImageView) findViewById(R.id.imv_add_foto);
+        pgb_cargar = (ProgressBar) findViewById(R.id.pgb_cargar);
+        edt_titulo = (EditText) findViewById(R.id.edt_titulo);
+        edt_descripcion = (EditText) findViewById(R.id.edt_descripcion);
 
-        /*edt_ubicacion = (EditText) findViewById(R.id.edt_ing_ubicacion);
+        pgb_cargar.setVisibility(View.INVISIBLE);
+
+
+        view_pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Toast.makeText(RegistrarIncidenciaActivity.this , "position : " + position , Toast.LENGTH_SHORT).show();
+                if(position == 0){
+                    txv_tipo.setText("ARMA");
+                }else if(position == 1){
+                    txv_tipo.setText("PANDILLAJE");
+                }else if(position == 2){
+                    txv_tipo.setText("VIOLENCIA");
+                }else if(position == 3){
+                    txv_tipo.setText("ROBO");
+                }
+            }
+
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+
         edt_ubicacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +136,6 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
                         new PlacePicker.IntentBuilder();
 
                 try {
-
                     startActivityForResult(builder.build(RegistrarIncidenciaActivity.this) ,PLACE_PICKER_REQUEST );
                 } catch (GooglePlayServicesRepairableException e) {
                     e.printStackTrace();
@@ -82,7 +143,69 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
+
+        btn_add_incidencia.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                ti =  edt_titulo.getText().toString();
+                des = edt_descripcion.getText().toString();
+                dis = edt_ubicacion.getText().toString();
+
+               if( ti.equalsIgnoreCase("")
+                       || des.equals("")
+                            || dis.equals("")){
+                   Toast.makeText(RegistrarIncidenciaActivity.this , "Completar campos", Toast.LENGTH_SHORT).show();
+
+               }else{
+                    // REALM GET USER
+                   Realm.init(RegistrarIncidenciaActivity.this);
+                   Realm realm = Realm.getDefaultInstance();
+                   RealmHelper realmHelper = new RealmHelper(realm);
+                   Usuario u = realmHelper.findUser();
+                   //
+                   Incidencia i = new Incidencia();
+                   Pos pos = new Pos();
+                   pos.setLat(lat);
+                   pos.setLon(lon);
+                   i.setIdUsuario(u.getNombre());
+                   i.setTitulo(ti);
+                   i.setFoto(img_link);
+                   i.setTipo(txv_tipo.getText().toString());
+                   i.setDistrito(dis);
+                   i.setDescripcion(des);
+                   i.setPos(pos);
+                   setVisible(true);
+                   Call<LoginResponse> saveIncidencia = Connection.getService().saveIncidencia(i);
+                   saveIncidencia.enqueue(new Callback<LoginResponse>() {
+                       @Override
+                       public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                           LoginResponse loginResponse = response.body();
+                           if(loginResponse.getCod() !=1 ){
+                               Toast.makeText(RegistrarIncidenciaActivity.this,
+                                        "Intentar de nuevo" , Toast.LENGTH_SHORT).show();
+                           }else{
+                               Toast.makeText(RegistrarIncidenciaActivity.this,
+                                       loginResponse.getMsg() , Toast.LENGTH_SHORT).show();
+                           }
+                           setVisible(false);
+                       }
+
+                       @Override
+                       public void onFailure(Call<LoginResponse> call, Throwable t) {
+                           Toast.makeText(RegistrarIncidenciaActivity.this,
+                                   "ERROR INTENTAR DE NUEVO" , Toast.LENGTH_SHORT).show();
+                           setVisible(false);
+                       }
+                   });
+
+               }
+
+            }
+        });
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         customSwiteAdapter = new CustomSwiteAdapter(this);
@@ -92,6 +215,8 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
 
     }
 
+
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         this.gesture.onTouchEvent(event);
@@ -100,31 +225,48 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode , int resultCode , Intent data){
 
-       /* if(requestCode == PLACE_PICKER_REQUEST){
+        if(requestCode == PLACE_PICKER_REQUEST){
             if(resultCode== RESULT_OK){
                 Place place = PlacePicker.getPlace(data,this);
-                String adress = String.format("Lat: %s" , place.getAddress());
+                String adress = String.format("%s" , place.getAddress());
+                lon = place.getLatLng().longitude;
+                lat = place.getLatLng().latitude;
                 edt_ubicacion.setText(adress);
             }
-        }*/
+        }
         if(resultCode == Activity.RESULT_OK){
             if(requestCode==SELECT_FILE){
                 Uri selectedImageUri = data.getData();
                 pathClaudinary = getPath(RegistrarIncidenciaActivity.this,selectedImageUri);
+                imv_add_foto.setVisibility(View.INVISIBLE);
+                pgb_cargar.setVisibility(View.VISIBLE);
                 new Thread(){
                     @Override
                     public void run() {
+
                         subirCloudinary();
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(RegistrarIncidenciaActivity.this, "Foto Subida", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrarIncidenciaActivity.this, "Foto cargada", Toast.LENGTH_SHORT).show();
+                                setVisible(false);
                             }
                         });
                     }
                 }.start();
-                //Toast.makeText(RegistrarIncidenciaActivity.this , path ,Toast.LENGTH_SHORT).show();
+
             }
+        }
+
+    }
+
+    public void setVisible(boolean es){
+        if(es){
+            imv_add_foto.setVisibility(View.INVISIBLE);
+            pgb_cargar.setVisibility(View.VISIBLE);
+        }else{
+            imv_add_foto.setVisibility(View.VISIBLE);
+            pgb_cargar.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -142,6 +284,7 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
             cloudinary.uploader().upload(fileInputStream,
                     ObjectUtils.asMap("public_id", timestamp)
             );
+            img_link = cloudinary.url().generate(timestamp);
             Log.i("URL_FOTO", cloudinary.url().generate(timestamp));
         } catch (IOException e) {
             Log.e(getClass().getName(), e.getMessage());
@@ -155,20 +298,15 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
             if(e2.getX() > e1.getX()){
-                Toast.makeText(RegistrarIncidenciaActivity.this , "Izquierda a derecha" ,Toast.LENGTH_SHORT).show();
             }else if(e2.getX() < e1.getX()){
-
                 requestPermissions(new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
                         REQUEST_PERMITION_STORAGE);
-
             }
             return true;
-
         }
     }
 
     public void subirFoto(){
-        Toast.makeText(RegistrarIncidenciaActivity.this , "Derecha a ezquierda" ,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         startActivityForResult(intent.createChooser(intent , "Seleccionar Archivo"),SELECT_FILE);
     }
@@ -188,6 +326,7 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
         }
     }
 
+    //GALERIA
     public static String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -255,16 +394,7 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
         return null;
     }
 
-    /**
-     * Get the value of the data column for this Uri. This is useful for
-     * MediaStore Uris, and other file-based ContentProviders.
-     *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
-     * @param selectionArgs (Optional) S|election arguments used in the query.
-     * @return The value of the _data column, which is typically a file path.
-     */
+
     public static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
 
@@ -288,35 +418,21 @@ public class RegistrarIncidenciaActivity extends AppCompatActivity {
         return null;
     }
 
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is ExternalStorageProvider.
-     */
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
+
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
+
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is Google Photos.
-     */
+
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }

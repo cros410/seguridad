@@ -10,10 +10,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.christian.aplicacionsegura.Models.RealmMigration;
 import com.example.christian.aplicacionsegura.Models.Usuario;
+import com.example.christian.aplicacionsegura.Realm.RealmHelper;
 import com.example.christian.aplicacionsegura.Response.LoginResponse;
 import com.example.christian.aplicacionsegura.Retrofit.Connection;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -83,6 +87,15 @@ public class LoginActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.INVISIBLE);
                             }else{
                                 Intent intent = new Intent(LoginActivity.this , MainActivity.class);
+                                //REALM
+                                configRealm();
+                                Realm.init(LoginActivity.this);
+                                Realm realm = Realm.getDefaultInstance();
+                                RealmHelper realmHelper = new RealmHelper(realm);
+                                realmHelper.deleteUsers();
+                                Usuario u = loginResponse.getData().getUsuario();
+                                realmHelper.saveUsuario(u);
+                                //
                                 startActivity(intent);
                             }
                         }
@@ -102,4 +115,15 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+    public void  configRealm(){
+        Realm.init(getApplicationContext());
+        // create your Realm configuration
+        RealmConfiguration config = new RealmConfiguration.
+                Builder().
+                deleteRealmIfMigrationNeeded().
+                build();
+        Realm.setDefaultConfiguration(config);
+    }
+
 }

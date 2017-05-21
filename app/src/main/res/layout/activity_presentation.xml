@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="0dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_style_blue"
         android:text="Ingresar"
         android:textColor="@color/colorTextoBoton"
         app:layout_constraintBottom_toBottomOf="parent"

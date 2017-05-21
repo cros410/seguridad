@@ -35,7 +35,7 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        final RealmConfiguration config = new RealmConfiguration.Builder()
+        /*final RealmConfiguration config = new RealmConfiguration.Builder()
                 .assetFile("default.realm") // e.g "default.realm" or "lib/data.realm"
                 .deleteRealmIfMigrationNeeded()
                 .build();
@@ -77,29 +77,10 @@ public class TestActivity extends AppCompatActivity {
                     public void onFailure(Call<Usuario> call, Throwable t) {
                         Toast.makeText(TestActivity.this,"Error",Toast.LENGTH_LONG);
                     }
-                });*/
+                });
             }
-        });
+        });*/
+
     }
-
-
-    private String copyBundledRealmFile(InputStream inputStream, String outFileName) {
-        try {
-            File file = new File(this.getFilesDir(), outFileName);
-            FileOutputStream outputStream = new FileOutputStream(file);
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buf)) > 0) {
-                outputStream.write(buf, 0, bytesRead);
-            }
-            outputStream.close();
-            return file.getAbsolutePath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.christian.aplicacionsegura.Realm;
 
+import com.example.christian.aplicacionsegura.Models.Incidencia;
 import com.example.christian.aplicacionsegura.Models.Usuario;
 
 import java.util.ArrayList;
@@ -32,13 +33,10 @@ public class RealmHelper {
     }
 
     //READ USER
-    public ArrayList<Usuario>  findUser(){
-        ArrayList<Usuario> usuarios = new ArrayList<>();
-        RealmResults<Usuario>  r_users = realm.where(Usuario.class).findAll();
-        for (Usuario u : r_users ){
-            usuarios.add(u);
-        }
-        return usuarios;
+    public Usuario  findUser(){
+        Usuario usuario ;
+        usuario = realm.where(Usuario.class).findFirst();
+        return usuario;
     }
 
     //DELETE ALL USERS
@@ -55,5 +53,56 @@ public class RealmHelper {
         });
     }
 
+    //UPDATE USER
+
+    public void updateUser(Usuario user){
+        realm.beginTransaction();
+        Usuario u = realm.where(Usuario.class).findFirst();
+        u.setNombre(user.getNombre());
+        u.setNumero(user.getNumero());
+        u.setDistrito(user.getDistrito());
+        realm.commitTransaction();
+    }
+
+    //UPDATE RANGO USER
+    public void updateRangoUser(Usuario user){
+        realm.beginTransaction();
+        Usuario u = realm.where(Usuario.class).findFirst();
+        u.setRango(user.getRango());
+        realm.commitTransaction();
+    }
+
+    //WRITE incidencia
+    public void saveIncidencia(final Incidencia datum){
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Incidencia u = realm.copyToRealm(datum);
+            }
+        });
+
+    }
+
+    //READ Incidencia
+    public Incidencia findIncidencia(String id ){
+        Incidencia datum = new Incidencia();
+        datum = realm.where(Incidencia.class).equalTo("id", id).findFirst();
+        return datum;
+    }
+
+    //DELETE ALL Incidencias
+
+    public void deleteIncidencias(){
+
+        final RealmResults<Incidencia> results = realm.where(Incidencia.class).findAll();
+
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                results.deleteAllFromRealm();
+            }
+        });
+    }
 
 }

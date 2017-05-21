@@ -30,12 +30,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".OlvidarActivity" />
-        <activity android:name=".RegistrarIncidenciaActivity">
-
-        </activity>
-        <activity android:name=".TestActivity">
-
-        </activity>
+        <activity android:name=".RegistrarIncidenciaActivity"></activity>
+        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".DetalleActivity"></activity>
     </application>
 
 </manifest>
