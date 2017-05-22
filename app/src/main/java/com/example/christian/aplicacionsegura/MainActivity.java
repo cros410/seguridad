@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fragment = new MapaFragment();
+        fragment = new PreferenciasFragment();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.main_container, fragment).commit();
     }

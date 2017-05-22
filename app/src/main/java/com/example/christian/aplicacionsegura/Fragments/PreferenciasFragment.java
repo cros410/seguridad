@@ -1,22 +1,32 @@
 package com.example.christian.aplicacionsegura.Fragments;
 
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.christian.aplicacionsegura.Models.Incidencia;
 import com.example.christian.aplicacionsegura.Models.Usuario;
 import com.example.christian.aplicacionsegura.R;
 import com.example.christian.aplicacionsegura.Realm.RealmHelper;
 import com.example.christian.aplicacionsegura.Response.LoginResponse;
 import com.example.christian.aplicacionsegura.Retrofit.Connection;
+import com.example.christian.aplicacionsegura.Suport.GPS_Service;
 
 import io.realm.Realm;
 import retrofit2.Call;
@@ -31,12 +41,19 @@ public class PreferenciasFragment extends Fragment {
     private   int progreso_rango;
     private ImageButton imb_actualizar_rango;
     private ProgressBar pgb_up_rango;
+    private Button btn_start , btn_stop;
+    private BroadcastReceiver broadcastReceiver;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_preferencias, container, false);
+
+        btn_start = (Button) v.findViewById(R.id.btn_service_start);
+        btn_stop = (Button) v.findViewById(R.id.btn_service_stop);
 
         seekBar = (SeekBar) v.findViewById(R.id.seb_rango);
         txv_rango = (TextView) v.findViewById(R.id.txv_rango);
@@ -117,9 +134,86 @@ public class PreferenciasFragment extends Fragment {
 
             }
         });
-
+        if(!runtime_permissions())
+            enable_buttons();
         return v;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(broadcastReceiver == null){
+            broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String lat = intent.getExtras().get("coordinates_lat").toString();
+                    String lon = intent.getExtras().get("coordinates_lon").toString();
+                    double f_lat = Double.parseDouble(lat);
+                    double f_lon = Double.parseDouble(lon);
+
+
+
+                    //Toast.makeText(getContext(), "Lat : " + f_lat, Toast.LENGTH_SHORT).show();
+                    //textView.append("\n" +intent.getExtras().get("coordinates"));
+
+                }
+            };
+        }
+        getContext().registerReceiver(broadcastReceiver,new IntentFilter("location_update"));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(broadcastReceiver != null){
+            getContext().unregisterReceiver(broadcastReceiver);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                enable_buttons();
+            }else {
+                runtime_permissions();
+            }
+        }
+    }
+
+    private void enable_buttons() {
+
+        btn_start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(),GPS_Service.class);
+                getContext().startService(i);
+            }
+        });
+
+        btn_stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(getContext(),GPS_Service.class);
+                getContext().stopService(i);
+
+            }
+        });
+
+    }
+
+    private boolean runtime_permissions() {
+        if(Build.VERSION.SDK_INT >= 23 && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},100);
+
+            return true;
+        }
+        return false;
+    }
+
 
 
 
