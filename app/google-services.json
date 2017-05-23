@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "672137421769",
+    "firebase_url": "https://seguridad-be383.firebaseio.com",
+    "project_id": "seguridad-be383",
+    "storage_bucket": "seguridad-be383.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672137421769:android:6ca37c504be2ca89",
+        "android_client_info": {
+          "package_name": "com.example.christian.aplicacionsegura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672137421769-glau6g5prt64ammbofd5c9vovsbprsa1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2agaWJCVFhsdom_aj4XHppgQpCmyRn9M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
